@@ -1,0 +1,14 @@
+{
+  "service": {
+    "name": "web1",
+    "tags": [
+      "httpdump"
+    ],
+    "port": 8111
+  },
+  "check": {
+    "name": "web1:curl",
+    "args": ["curl", "-sS", "localhost:8111"],
+    "interval":"5s"
+  }
+}

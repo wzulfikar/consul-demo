@@ -1,0 +1,7 @@
+{
+  "check": {
+  "name": "internet access",
+  "args": ["ping", "-c1", "google.com"],
+  "interval": "30s"
+  }
+}

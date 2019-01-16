@@ -1,0 +1,5 @@
+{
+  "server": true,
+  "log_level" : "trace",
+  "enable_script_checks" : true
+}
