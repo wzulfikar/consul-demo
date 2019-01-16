@@ -1,0 +1,20 @@
+{
+  "ID": "web1",
+  "Name": "web",
+  "Tags": [
+    "httphello"
+  ],
+  "Address": "web.service.consul",
+  "Port": 80,
+  "EnableTagOverride": false,
+  "Check": {
+    "DeregisterCriticalServiceAfter": "90m",
+    "Args": ["curl", "-sS", "localhost"],
+    "HTTP": "http://localhost",
+    "Interval": "10s"
+  },
+  "Weights": {
+    "Passing": 10,
+    "Warning": 1
+  }
+}

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# dns forward using socat
+socat -v UDP4-RECVFROM:53,fork UDP4-SENDTO:localhost:8600

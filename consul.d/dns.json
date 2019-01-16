@@ -1,0 +1,9 @@
+{
+  "service": {
+    "name": "dns-forward",
+    "tags": [
+      "dns"
+    ],
+    "port": 53
+  }
+}

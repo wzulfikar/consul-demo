@@ -5,9 +5,9 @@ serve:
 	@echo 'running consul agent from within docker..'
 	docker run -it --rm \
 	--add-host=dockerhost:${DOCKERHOST} \
-	-v ${CURRENT_DIR}/entrypoint.sh:/entrypoint.sh \
+	-v ${CURRENT_DIR}/docker/:/data/ \
 	-v ${CURRENT_DIR}/consul.d/:/consul.d/ \
-	--entrypoint /entrypoint.sh \
+	--entrypoint /data/entrypoint.sh \
 	consul
 
 # join consul cluster.
@@ -22,10 +22,6 @@ join:
 show-members:
 	docker exec -it ${container} consul members
 
-# simulate healthy 'web1' endpoint
-web1:
-	httpdump 8111
-
-# simulate healthy 'web1' endpoint 
-web2:
-	httpdump 8112
+# simulate a healthy http endpoint at dockerhost
+dockerhost-hello:
+	${CURRENT_DIR}/docker/httphello 8112

@@ -1,0 +1,19 @@
+#!/bin/sh
+
+CONTAINER_IP=$(hostname -i)
+CONTAINER_NAME=$(hostname)
+
+PORT=$1
+if [ -z "$PORT" ]; then
+	PORT=80
+fi
+
+echo "running http hello at http://${CONTAINER_IP}"
+socat -v -d \
+    TCP-LISTEN:${PORT},crlf,reuseaddr,fork \
+    SYSTEM:"
+        echo HTTP/1.1 200 OK; 
+        echo Content-Type\: text/plain; 
+        echo; 
+        echo \"Hello from ${CONTAINER_NAME}\";
+    "

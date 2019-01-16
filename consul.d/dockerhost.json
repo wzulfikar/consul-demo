@@ -1,13 +1,14 @@
 {
   "service": {
-    "name": "web2",
+    "name": "dockerhost-hello",
     "tags": [
       "httpdump"
     ],
+    "address": "172.17.0.1",
     "port": 8112
   },
   "check": {
-    "name": "web2:curl",
+    "name": "dockerhost-hello:curl",
     "args": ["curl", "-sS", "dockerhost:8112"],
     "interval": "5s"
   }

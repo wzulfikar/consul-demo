@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# register service to consul using consul http api
+echo "registering new service to consul.."
+curl -X PUT --data @/data/web.json http://127.0.0.1:8500/v1/agent/service/register
