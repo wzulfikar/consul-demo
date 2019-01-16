@@ -8,7 +8,7 @@
   },
   "check": {
     "name": "web2:curl",
-    "args": ["curl", "-sS", "localhost:8112"],
+    "args": ["curl", "-sS", "dockerhost:8112"],
     "interval": "5s"
   }
 }

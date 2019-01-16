@@ -1,18 +1,26 @@
 CURRENT_DIR:=$(shell pwd)
 DOCKERHOST:=$(shell ip -4 addr show docker0 | grep -Po 'inet \K[\d.]+')
 
-# display ip of dockerhost (bridged network at 'docker0')
-ip-dockerhost:
-	@echo 'docker host ip: ${DOCKERHOST}'
-
-# run consul agent
 serve:
-	@echo 'running consul agent. ui is accessible at http://${DOCKERHOST}:8500/ui'
-	consul agent -dev -ui -config-dir=consul.d/ -log-file=logs/ -bind=${DOCKERHOST}
-
-serve-docker:
 	@echo 'running consul agent from within docker..'
-	docker run -it --rm -v ${CURRENT_DIR}/docker-entrypoint.sh:/entrypoint.sh --entrypoint /entrypoint.sh consul
+	docker run -it --rm \
+	--add-host=dockerhost:${DOCKERHOST} \
+	-v ${CURRENT_DIR}/entrypoint.sh:/entrypoint.sh \
+	-v ${CURRENT_DIR}/consul.d/:/consul.d/ \
+	--entrypoint /entrypoint.sh \
+	consul
+
+# join consul cluster.
+# usage: make join container=<container id> ip=<ip of cluster member>
+# example: make join container=eb98ca0b38a7 ip=172.17.0.2
+join:
+	docker exec -it ${container} consul join ${ip}
+
+# show consul members.
+# usage: make show-members container=<container id>
+# example: make show-members container=eb98ca0b38a7
+show-members:
+	docker exec -it ${container} consul members
 
 # simulate healthy 'web1' endpoint
 web1:
